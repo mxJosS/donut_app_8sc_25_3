@@ -67,12 +67,12 @@ lib/
  │    ├── donut_tile.dart           # Custom widget for donut items
  │    ├── my_tab.dart               # Widget for custom tab navigation
  │    └── main.dart                 # Main app logic and tab structure
-
-
+```
 
 🎥 Demo
 
-![FlutterDemo-Perfil1_MicrosoftEdge2025-10-2618-45-05-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/ce2b2df3-d004-4d4e-bd02-4a016c00e760)
+![donut_demo](https://github.com/user-attachments/assets/09b58353-964a-456e-8ca7-1754c7c79649)
+
 
 
 🎨 Design Credits
@@ -80,7 +80,11 @@ lib/
 Original design inspired by a Dribbble concept.
 All visual rights belong to the original creator.
 https://dribbble.com/shots/19649140-App-UI
-<img width="854" height="728" alt="image" src="https://github.com/user-attachments/assets/4be14363-9373-4e24-b7ce-70da11c54e40" />
+
+
+
+
+<img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/4be14363-9373-4e24-b7ce-70da11c54e40" />
 
 
 
