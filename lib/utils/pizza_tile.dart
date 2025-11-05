@@ -6,6 +6,7 @@ class PizzaTile extends StatelessWidget {
   final dynamic pizzaColor;
   final String pizzaImagePath;
   final String pizzaProvider;
+  final void Function() onAdd; // 👈 nuevo callback para el carrito
 
   const PizzaTile({
     super.key,
@@ -14,6 +15,7 @@ class PizzaTile extends StatelessWidget {
     required this.pizzaColor,
     required this.pizzaImagePath,
     required this.pizzaProvider,
+    required this.onAdd, // 👈 agregado al constructor
   });
 
   @override
@@ -27,13 +29,14 @@ class PizzaTile extends StatelessWidget {
         ),
         child: Column(
           children: [
+            // Precio arriba a la derecha
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
                   decoration: BoxDecoration(
                     color: pizzaColor[100],
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(24),
                       topRight: Radius.circular(24),
                     ),
@@ -53,12 +56,14 @@ class PizzaTile extends StatelessWidget {
                 ),
               ],
             ),
-            //Imagen de la dona
+
+            // Imagen de la pizza
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 18),
               child: Image.asset(pizzaImagePath),
             ),
-            //Nombre de la pizza
+
+            // Nombre de la pizza
             Text(
               pizzaFlavor,
               style: TextStyle(
@@ -67,20 +72,20 @@ class PizzaTile extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            //Tienda de la pizza
+
+            // Proveedor o restaurante
             Text(pizzaProvider, style: TextStyle(color: Colors.grey[600])),
-            //Botones
+
+            // Botones
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  //Favorito
                   Icon(Icons.favorite, color: Colors.pink[400]),
-                  //Agregar
                   TextButton(
-                    onPressed: () {},
-                    child: Text(
+                    onPressed: onAdd, // 👈 usa el callback
+                    child: const Text(
                       'Add',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,

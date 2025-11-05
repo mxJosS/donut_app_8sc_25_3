@@ -6,6 +6,7 @@ class PancakeTile extends StatelessWidget {
   final dynamic pancakeColor;
   final String pancakeImagePath;
   final String pancakeProvider;
+  final void Function() onAdd; // 👈 nuevo callback
 
   const PancakeTile({
     super.key,
@@ -14,6 +15,7 @@ class PancakeTile extends StatelessWidget {
     required this.pancakeColor,
     required this.pancakeImagePath,
     required this.pancakeProvider,
+    required this.onAdd, // 👈 agregado al constructor
   });
 
   @override
@@ -27,13 +29,14 @@ class PancakeTile extends StatelessWidget {
         ),
         child: Column(
           children: [
+            // Precio arriba a la derecha
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
                   decoration: BoxDecoration(
                     color: pancakeColor[100],
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(24),
                       topRight: Radius.circular(24),
                     ),
@@ -53,12 +56,14 @@ class PancakeTile extends StatelessWidget {
                 ),
               ],
             ),
-            //Imagen de la dona
+
+            // Imagen del pancake
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 18),
               child: Image.asset(pancakeImagePath),
             ),
-            //Nombre de la dona
+
+            // Nombre del pancake
             Text(
               pancakeFlavor,
               style: TextStyle(
@@ -67,20 +72,20 @@ class PancakeTile extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            //Tienda de la dona
+
+            // Tienda o proveedor
             Text(pancakeProvider, style: TextStyle(color: Colors.grey[600])),
-            //Botones
+
+            // Botones (favorito y agregar)
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  //Favorito
                   Icon(Icons.favorite, color: Colors.pink[400]),
-                  //Agregar
                   TextButton(
-                    onPressed: () {},
-                    child: Text(
+                    onPressed: onAdd, // 👈 ejecuta el callback
+                    child: const Text(
                       'Add',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,

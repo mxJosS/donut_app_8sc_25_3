@@ -6,6 +6,7 @@ class SmoothieTile extends StatelessWidget {
   final dynamic smoothieColor;
   final String smoothieImagePath;
   final String smoothieProvider;
+  final void Function() onAdd;
 
   const SmoothieTile({
     super.key,
@@ -14,6 +15,7 @@ class SmoothieTile extends StatelessWidget {
     required this.smoothieColor,
     required this.smoothieImagePath,
     required this.smoothieProvider,
+    required this.onAdd,
   });
 
   @override
@@ -27,13 +29,14 @@ class SmoothieTile extends StatelessWidget {
         ),
         child: Column(
           children: [
+            // Precio arriba a la derecha
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
                   decoration: BoxDecoration(
                     color: smoothieColor[100],
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(24),
                       topRight: Radius.circular(24),
                     ),
@@ -53,12 +56,14 @@ class SmoothieTile extends StatelessWidget {
                 ),
               ],
             ),
-            //Imagen del smoothie
+
+            // Imagen
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 18),
               child: Image.asset(smoothieImagePath),
             ),
-            //Nombre del smoothie
+
+            // Nombre
             Text(
               smoothieFlavor,
               style: TextStyle(
@@ -67,20 +72,20 @@ class SmoothieTile extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            //Tienda del smoothie
+
+            // Tienda o proveedor
             Text(smoothieProvider, style: TextStyle(color: Colors.grey[600])),
-            //Botones
+
+            // Botones (favorito y agregar)
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  //Favorito
                   Icon(Icons.favorite, color: Colors.pink[400]),
-                  //Agregar
                   TextButton(
-                    onPressed: () {},
-                    child: Text(
+                    onPressed: onAdd,
+                    child: const Text(
                       'Add',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,

@@ -1,3 +1,4 @@
+// BurguerTile.dart
 import 'package:flutter/material.dart';
 
 class BurguerTile extends StatelessWidget {
@@ -6,6 +7,7 @@ class BurguerTile extends StatelessWidget {
   final dynamic burguerColor;
   final String burguerImagePath;
   final String burguerProvider;
+  final void Function() onAdd; // 👈 Callback que se ejecuta al presionar "Add"
 
   const BurguerTile({
     super.key,
@@ -14,6 +16,7 @@ class BurguerTile extends StatelessWidget {
     required this.burguerColor,
     required this.burguerImagePath,
     required this.burguerProvider,
+    required this.onAdd, // 👈 agregado en el constructor
   });
 
   @override
@@ -27,13 +30,14 @@ class BurguerTile extends StatelessWidget {
         ),
         child: Column(
           children: [
+            // Precio arriba a la derecha
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
                   decoration: BoxDecoration(
                     color: burguerColor[100],
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(24),
                       topRight: Radius.circular(24),
                     ),
@@ -53,12 +57,14 @@ class BurguerTile extends StatelessWidget {
                 ),
               ],
             ),
-            //Imagen de la hamburguesa
+
+            // Imagen de la hamburguesa
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
               child: Image.asset(burguerImagePath),
             ),
-            //Nombre de la hamburguesa
+
+            // Nombre de la hamburguesa
             Text(
               burguerFlavor,
               style: TextStyle(
@@ -67,20 +73,20 @@ class BurguerTile extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            //Tienda de la hamburguesa
+
+            // Tienda de la hamburguesa
             Text(burguerProvider, style: TextStyle(color: Colors.grey[600])),
-            //Botones
+
+            // Botones (favorito y agregar)
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  //Favorito
                   Icon(Icons.favorite, color: Colors.pink[400]),
-                  //Agregar
                   TextButton(
-                    onPressed: () {},
-                    child: Text(
+                    onPressed: onAdd, // 👈 ejecuta la función recibida
+                    child: const Text(
                       'Add',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,

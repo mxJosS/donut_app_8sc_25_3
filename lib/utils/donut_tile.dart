@@ -1,3 +1,4 @@
+// lib/utils/donut_tile.dart
 import 'package:flutter/material.dart';
 
 class DonutTile extends StatelessWidget {
@@ -6,6 +7,7 @@ class DonutTile extends StatelessWidget {
   final dynamic donutColor;
   final String donutImagePath;
   final String donutProvider;
+  final void Function() onAdd; // 👈 callback para agregar al carrito
 
   const DonutTile({
     super.key,
@@ -14,6 +16,7 @@ class DonutTile extends StatelessWidget {
     required this.donutColor,
     required this.donutImagePath,
     required this.donutProvider,
+    required this.onAdd, // 👈 agregado en el constructor
   });
 
   @override
@@ -27,13 +30,14 @@ class DonutTile extends StatelessWidget {
         ),
         child: Column(
           children: [
+            // Precio en la esquina superior derecha
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
                   decoration: BoxDecoration(
                     color: donutColor[100],
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(24),
                       topRight: Radius.circular(24),
                     ),
@@ -53,12 +57,14 @@ class DonutTile extends StatelessWidget {
                 ),
               ],
             ),
-            //Imagen de la dona
+
+            // Imagen de la dona
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 18),
               child: Image.asset(donutImagePath),
             ),
-            //Nombre de la dona
+
+            // Nombre de la dona
             Text(
               donutFlavor,
               style: TextStyle(
@@ -67,20 +73,20 @@ class DonutTile extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            //Tienda de la dona
+
+            // Tienda o proveedor
             Text(donutProvider, style: TextStyle(color: Colors.grey[600])),
-            //Botones
+
+            // Botones (favorito + agregar)
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  //Favorito
                   Icon(Icons.favorite, color: Colors.pink[400]),
-                  //Agregar
                   TextButton(
-                    onPressed: () {},
-                    child: Text(
+                    onPressed: onAdd, // 👈 ejecuta el callback recibido
+                    child: const Text(
                       'Add',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,

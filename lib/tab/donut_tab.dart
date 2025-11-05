@@ -1,5 +1,6 @@
 import 'package:donut_app_8sc_25_3/utils/donut_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:donut_app_8sc_25_3/models/menu_item.dart';
 
 //List of donuts
 final List donutOnSale = [
@@ -35,7 +36,9 @@ final List donutOnSale = [
 ];
 
 class DonutTab extends StatelessWidget {
-  const DonutTab({super.key});
+  final void Function(MenuItem item) onAdd;
+
+  const DonutTab({super.key, required this.onAdd});
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +49,27 @@ class DonutTab extends StatelessWidget {
       ),
       itemCount: donutOnSale.length,
       itemBuilder: (context, index) {
+        final data = donutOnSale[index];
+        final name = data[0] as String;
+        final priceS = data[1] as String;
+        final color = data[2];
+        final img = data[3] as String;
+        final prov = data[4] as String;
+
         return DonutTile(
-          donutFlavor: donutOnSale[index][0],
-          donutPrice: donutOnSale[index][1],
-          donutColor: donutOnSale[index][2],
-          donutImagePath: donutOnSale[index][3],
-          donutProvider: donutOnSale[index][4],
+          donutFlavor: name,
+          donutPrice: priceS,
+          donutColor: color,
+          donutImagePath: img,
+          donutProvider: prov,
+          onAdd: () => onAdd(
+            MenuItem(
+              name: name,
+              price: double.tryParse(priceS) ?? 0.0,
+              seller: prov,
+              imagePath: img,
+            ),
+          ),
         );
       },
     );

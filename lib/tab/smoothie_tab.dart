@@ -1,9 +1,9 @@
-import 'package:donut_app_8sc_25_3/utils/smoothie_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:donut_app_8sc_25_3/models/menu_item.dart';
+import 'package:donut_app_8sc_25_3/utils/smoothie_tile.dart';
 
-//List of Smoothies
-final List smoothieOnSale = [
-  //SmoothieFlavor, smoothiePrice, SmoothieColor, SmoothieImagePath, SmoothieProvider
+// Lista de smoothies (nombre, precio, color, imagen, proveedor)
+final List<List<dynamic>> smoothieOnSale = [
   [
     'Strawberry Smoothie',
     '110',
@@ -23,7 +23,9 @@ final List smoothieOnSale = [
 ];
 
 class SmoothieTab extends StatelessWidget {
-  const SmoothieTab({super.key});
+  final void Function(MenuItem item) onAdd;
+
+  const SmoothieTab({super.key, required this.onAdd});
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +36,21 @@ class SmoothieTab extends StatelessWidget {
       ),
       itemCount: smoothieOnSale.length,
       itemBuilder: (context, index) {
+        final s = smoothieOnSale[index];
         return SmoothieTile(
-          smoothieFlavor: smoothieOnSale[index][0],
-          smoothiePrice: smoothieOnSale[index][1],
-          smoothieColor: smoothieOnSale[index][2],
-          smoothieImagePath: smoothieOnSale[index][3],
-          smoothieProvider: smoothieOnSale[index][4],
+          smoothieFlavor: s[0],
+          smoothiePrice: s[1],
+          smoothieColor: s[2],
+          smoothieImagePath: s[3],
+          smoothieProvider: s[4],
+          onAdd: () => onAdd(
+            MenuItem(
+              name: s[0],
+              price: double.tryParse(s[1]) ?? 0.0,
+              seller: s[4],
+              imagePath: s[3],
+            ),
+          ),
         );
       },
     );
